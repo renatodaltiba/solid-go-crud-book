@@ -1,0 +1,10 @@
+CREATE TABLE public.books (
+  description character varying(255) NULL,
+  author character varying(255) NULL,
+  title character varying(255) NULL,
+  id integer NOT NULL
+);
+ALTER TABLE
+  public.books
+ADD
+  CONSTRAINT books_pkey PRIMARY KEY (id)
