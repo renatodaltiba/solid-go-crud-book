@@ -27,6 +27,7 @@ func (*repo) Books() ([]entities.Book, error) {
 		log.Fatal("Failed to load configuration: ", err)
 		os.Exit(1)
 	}
+	db.Close()
 
 	var books []entities.Book
 	err = db.Select(&books, "SELECT * FROM books")
@@ -39,7 +40,25 @@ func (*repo) Books() ([]entities.Book, error) {
 }
 
 func (*repo) CreateBook(book *entities.Book) error {
-	return nil
+	cfg, err := loadConfig()
+	if err != nil {
+		log.Fatal("Failed to load configuration: ", err)
+		os.Exit(-1)
+	}
+
+	db, err := database.Connect(cfg.Database)
+	if err != nil {
+		log.Fatal("Failed to load configuration: ", err)
+		os.Exit(1)
+	}
+
+	_, err = db.Exec("INSERT INTO books (title, author, description) VALUES ($1, $2, $3)", book.Title, book.Author, book.Description)
+	if err != nil {
+		log.Fatal("Failed to insert on database: ", err)
+		os.Exit(1)
+	}
+
+	return err
 }
 
 func loadConfig() (*config.Config, error) {
