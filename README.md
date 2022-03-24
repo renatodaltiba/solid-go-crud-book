@@ -35,16 +35,14 @@ Necessário realizar as instalações.
   # Entre na pasta do repositório clonado
   $ cd solid-go-crud-book
 ```
-```
 ### **Iniciando a database**
-
+```bash
   $ docker-compose up
-
-```
 ```
 ### **Inserir a tabela books no banco**
   Execute manualmente o código
-  ```sql
+
+```bash
   CREATE TABLE public.books (
   description character varying(255) NULL,
   author character varying(255) NULL,
@@ -57,8 +55,6 @@ ADD
   CONSTRAINT books_pkey PRIMARY KEY (id)
   ```
 
-
-```
 ### **Iniciando o projeto**
 
 ```bash
